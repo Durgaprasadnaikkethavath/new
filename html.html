@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Appointment Booking</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      select,
+      input[type="datetime-local"] {
+        width: 100%;
+        padding: 8px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Book an Appointment</h1>
+    <div class="form-group">
+      <label for="patientName">Patient Name</label>
+      <input type="text" id="patientName" placeholder="Enter your name" />
+    </div>
+    <div class="form-group">
+      <label for="doctorName">Doctor Name</label>
+      <select id="doctorName">
+        <option value="Dr. Smith">Dr. Smith</option>
+        <option value="Dr. Johnson">Dr. Johnson</option>
+        <option value="Dr. Williams">Dr. Williams</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="appointmentTime">Appointment Date and Time</label>
+      <input type="datetime-local" id="appointmentTime" />
+    </div>
+    <button onclick="bookAppointment()">Book Appointment</button>
+
+    <h2>Booked Appointments</h2>
+    <div class="appointment-list" id="appointmentList"></div>
+
+    <script>
+      function bookAppointment() {
+        const patientName = document.getElementById("patientName").value;
+        const doctorName = document.getElementById("doctorName").value;
+        const appointmentTime =
+          document.getElementById("appointmentTime").value;
+        const currentTime = new Date().toISOString();
+
+        //appointment select or not
+
+        if (new Date(appointmentTime) < new Date(currentTime)) {
+          alert("Cannot select a past date and time.");
+          return;
+        }
+
+        if (patientName && doctorName && appointmentTime) {
+          const appointmentList = document.getElementById("appointmentList");
+          const appointmentItem = document.createElement("div");
+          appointmentItem.textContent = `Patient Name: ${patientName}, Doctor Name: ${doctorName}, Appointment Time: ${appointmentTime}`;
+          appointmentList.appendChild(appointmentItem);
+          alert(`Appointment booked successfully!`);
+        } else {
+          alert("Please fill in all fields.");
+        }
+      }
+    </script>
+  </body>
+</html>
